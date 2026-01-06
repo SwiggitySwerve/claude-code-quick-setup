@@ -6,7 +6,31 @@ This directory contains reusable skill definitions for Claude Code.
 
 Skills can be loaded into your Claude Code configuration to extend functionality.
 
-## Available Skills
+## Categories
+
+### [Official Anthropic Skills](./official/)
+Official skills from the [Anthropic skills repository](https://github.com/anthropics/skills).
+
+These are production-ready skills maintained by the Anthropic team:
+- **algorithmic-art** - Create algorithmic art with p5.js
+- **brand-guidelines** - Apply Anthropic brand colors and typography
+- **canvas-design** - Create visual art in PNG/PDF formats
+- **doc-coauthoring** - Structured documentation co-authoring workflow
+- **docx** - Comprehensive Word document creation and editing
+- **frontend-design** - Production-grade frontend interface design
+- **internal-comms** - Internal communication templates
+- **mcp-builder** - Create MCP servers (Python/TypeScript)
+- **pdf** - PDF manipulation toolkit
+- **pptx** - PowerPoint presentation creation and editing
+- **skill-creator** - Meta-skill for creating new skills
+- **slack-gif-creator** - Create animated GIFs for Slack
+- **theme-factory** - Style artifacts with professional themes
+- **webapp-testing** - Test local web apps with Playwright
+- **web-artifacts-builder** - Create elaborate HTML artifacts with React
+- **xlsx** - Comprehensive spreadsheet creation and editing
+
+### [Custom Community Skills](./)
+Community-created skills for common development workflows.
 
 ### Documentation Skills
 
