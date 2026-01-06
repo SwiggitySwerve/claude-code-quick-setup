@@ -1,42 +1,56 @@
 # Claude Code Quick Setup
 
-Quick setup scripts and documentation for Claude Code CLI aliases across different platforms.
+Quick setup scripts, aliases, commands, and extensions for Claude Code CLI.
 
 ## Overview
 
-This repository contains configuration files and documentation for setting up useful Claude CLI aliases on Linux, macOS, and Windows.
+This repository contains configuration files, documentation, and ready-to-use components for enhancing your Claude Code experience across Linux, macOS, and Windows.
 
-## Available Aliases
-
-| Alias | Purpose |
-|-------|---------|
-| `claude-yolo` | Runs Claude with `--dangerously-skip-permissions` (bypasses confirmation prompts) |
-| `claude-glm` | Routes Claude API calls through GLM's proxy endpoint |
-| `claude-yolo-glm` | Combines both: GLM proxy + skip permissions |
-
-## Quick Setup
-
-Choose your platform below for detailed instructions:
-
-- [Linux/macOS Setup](./linux-macos-setup.md)
-- [Windows PowerShell Setup](./windows-powershell-setup.md)
-- [Windows CMD Setup](./windows-cmd-setup.md)
-
-## Prerequisites
-
-- Claude Code CLI installed
-- (Optional) GLM API key for proxy aliases
-
-## Repository Structure
+## Directory Structure
 
 ```
-.
-├── README.md                    # This file
-├── linux-macos-setup.md         # Linux & macOS bash/zsh setup
-├── windows-powershell-setup.md  # Windows PowerShell setup
-└── windows-cmd-setup.md         # Windows Command Prompt setup
+claude-code-quick-setup/
+├── setup/           # Installation & configuration guides
+├── commands/        # Custom commands and scripts
+├── skills/          # Reusable skill definitions
+├── hooks/           # Hook configurations
+├── mcp-server/      # MCP server setups
+└── docs/            # Additional documentation
 ```
+
+## Quick Start
+
+1. **Setup Aliases** → See [setup/](./setup/) for platform-specific instructions
+2. **Add Commands** → Browse [commands/](./commands/) for useful additions
+3. **Install Skills** → Check [skills/](./skills/) for ready-to-use skills
+
+## Repository Sections
+
+### [setup/](./setup/)
+Installation guides for Claude CLI aliases:
+- `linux-macos-setup.md` - Bash/Zsh configuration
+- `windows-powershell-setup.md` - PowerShell functions
+- `windows-cmd-setup.md` - Command Prompt setup
+
+### [commands/](./commands/)
+Custom commands and scripts for common tasks.
+
+### [skills/](./skills/)
+Reusable skill definitions and configurations.
+
+### [hooks/](./hooks/)
+Hook configurations for Claude Code events.
+
+### [mcp-server/](./mcp-server/)
+MCP (Model Context Protocol) server configurations.
+
+### [docs/](./docs/)
+Additional documentation and guides.
+
+## Contributing
+
+Feel free to submit PRs with new commands, skills, or improvements!
 
 ## License
 
-MIT License - Feel free to use and modify as needed.
+MIT License - Free to use and modify.
