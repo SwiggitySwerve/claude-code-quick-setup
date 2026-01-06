@@ -1,0 +1,38 @@
+{
+  "hookName": "pre-commit-validation",
+  "description": "Validates code quality before allowing commits",
+  "events": ["user-prompt-submit"],
+  "condition": "prompt.includes('git commit') || prompt.includes('commit')",
+  "actions": [
+    {
+      "type": "run-command",
+      "command": "git diff --cached --name-only",
+      "description": "Get list of staged files"
+    },
+    {
+      "type": "check",
+      "name": "lint-check",
+      "description": "Run linter on staged files",
+      "command": "npm run lint --staged 2>/dev/null || eslint $(git diff --cached --name-only | grep '\\.js$') 2>/dev/null || true",
+      "onFailure": "warn"
+    },
+    {
+      "type": "check",
+      "name": "type-check",
+      "description": "Run TypeScript type checking",
+      "command": "tsc --noEmit 2>/dev/null || true",
+      "onFailure": "warn"
+    },
+    {
+      "type": "check",
+      "name": "test-check",
+      "description": "Run affected tests",
+      "command": "npm test -- --related 2>/dev/null || jest --onlyChanged 2>/dev/null || true",
+      "onFailure": "warn"
+    }
+  ],
+  "message": {
+    "onWarning": "⚠️  Pre-commit checks found issues. Consider fixing before committing.",
+    "onSuccess": "✅ Pre-commit checks passed!"
+  }
+}

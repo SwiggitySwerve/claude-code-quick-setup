@@ -1,0 +1,27 @@
+{
+  "hookName": "documentation-validator",
+  "description": "Ensures code changes include appropriate documentation",
+  "events": ["pre-response"],
+  "condition": "includesToolUse(['Edit', 'Write'])",
+  "actions": [
+    {
+      "type": "check",
+      "name": "new-function-docs",
+      "description": "Check if new functions have documentation",
+      "command": "git diff | grep '^+.*function\\|^+.*def \\|^+.*func '",
+      "validation": {
+        "type": "pattern-match",
+        "pattern": "(\\/\\*\\*|\\/\\/|#|\"\"\"",
+        "expect": "found",
+        "message": "New function detected without documentation. Consider adding comments."
+      }
+    },
+    {
+      "type": "check",
+      "name": "readme-update",
+      "description": "Remind to update README for user-facing changes",
+      "condition": "filesChanged.includes('README.md') === false && (filesChanged.includes('src/') || filesChanged.includes('lib/'))",
+      "message": "💡 Tip: Consider updating README.md if you made user-facing changes"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "hookName": "automated-code-review",
+  "description": "Performs automated code review when files are modified",
+  "events": ["tool-result"],
+  "condition": "toolName === 'Edit' || toolName === 'Write'",
+  "actions": [
+    {
+      "type": "run-command",
+      "command": "git diff {{file}}",
+      "description": "Get diff for modified file"
+    },
+    {
+      "type": "analysis",
+      "checks": [
+        {
+          "name": "security-check",
+          "description": "Check for security issues",
+          "patterns": [
+            "eval(",
+            "innerHTML",
+            "dangerouslySetInnerHTML",
+            "exec(",
+            "system(",
+            "shell_exec("
+          ],
+          "severity": "high",
+          "message": "⚠️  Potential security issue detected: {{pattern}}"
+        },
+        {
+          "name": "secret-check",
+          "description": "Check for hardcoded secrets",
+          "patterns": [
+            "password\\s*=\\s*['\"][^'\"]+['\"]",
+            "api_key\\s*=\\s*['\"][^'\"]+['\"]",
+            "secret\\s*=\\s*['\"][^'\"]+['\"]",
+            "token\\s*=\\s*['\"][^'\"]+['\"]"
+          ],
+          "severity": "critical",
+          "message": "🚨 Hardcoded secret detected! Please use environment variables."
+        },
+        {
+          "name": "todo-check",
+          "description": "Check for TODO comments",
+          "patterns": [
+            "TODO",
+            "FIXME",
+            "HACK",
+            "XXX"
+          ],
+          "severity": "info",
+          "message": "📝 Found {{pattern}} comment in code"
+        },
+        {
+          "name": "complexity-check",
+          "description": "Check for complex code",
+          "condition": "cyclomaticComplexity > 10",
+          "severity": "medium",
+          "message": "⚡ Complex function detected (complexity: {{complexity}}). Consider refactoring."
+        }
+      ]
+    }
+  ],
+  "output": {
+    "format": "markdown",
+    "sections": [
+      {
+        "title": "Code Review Results",
+        "content": "{{findings}}"
+      }
+    ]
+  }
+}

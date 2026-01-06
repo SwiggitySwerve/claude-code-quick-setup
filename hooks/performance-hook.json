@@ -1,0 +1,49 @@
+{
+  "hookName": "performance-monitor",
+  "description": "Monitors performance of long-running operations",
+  "events": ["tool-result"],
+  "actions": [
+    {
+      "type": "check",
+      "name": "slow-operation",
+      "description": "Warn about slow operations",
+      "condition": "duration > 5000",
+      "message": "⏱️  Operation took {{duration}}ms. Consider optimizing if this happens frequently.",
+      "severity": "warning"
+    },
+    {
+      "type": "check",
+      "name": "very-slow-operation",
+      "description": "Alert on very slow operations",
+      "condition": "duration > 30000",
+      "message": "🐌 Operation took {{duration}}ms. This may need optimization.",
+      "severity": "error",
+      "actions": [
+        "log-to-file",
+        "show-optimization-suggestions"
+      ]
+    }
+  ],
+  "optimizationSuggestions": {
+    "Bash": {
+      "slow-commands": [
+        "npm install",
+        "git clone",
+        "find /",
+        "npm rebuild"
+      ],
+      "suggestions": {
+        "npm install": "Consider using 'npm ci' for faster installs, or check if dependencies can be reduced.",
+        "git clone": "Try 'git clone --depth 1' for shallow clones when history isn't needed.",
+        "find": "Narrow the search directory or use more specific patterns.",
+        "npm rebuild": "This is rarely necessary. Only run when explicitly needed."
+      }
+    },
+    "Grep": {
+      "suggestions": "Use more specific patterns or narrow the search path with --glob or --type flags."
+    },
+    "Read": {
+      "suggestions": "For large files, consider using offset and limit parameters to read only what's needed."
+    }
+  }
+}

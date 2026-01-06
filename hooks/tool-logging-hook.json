@@ -1,0 +1,25 @@
+{
+  "hookName": "tool-usage-logger",
+  "description": "Logs all tool usage for debugging and analytics",
+  "events": ["tool-use", "tool-result"],
+  "actions": [
+    {
+      "type": "log",
+      "format": "json",
+      "fields": {
+        "timestamp": "{{timestamp}}",
+        "tool": "{{toolName}}",
+        "action": "{{eventName}}",
+        "duration": "{{duration}}",
+        "success": "{{success}}",
+        "error": "{{error}}"
+      }
+    },
+    {
+      "type": "append-file",
+      "file": ".claude-tool-logs.jsonl",
+      "content": "{{timestamp}} [{{eventName}}] {{toolName}} - {{duration}}ms - {{success}}",
+      "condition": "process.env.CLAUDE_DEBUG === 'true'"
+    }
+  ]
+}
